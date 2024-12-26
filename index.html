@@ -3,13 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="./src/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Funciones</title>
   </head>
   <body>
-    <div id="app">
-      <h1>Módulo 3 - Variables</h1>
+    <div class="turno-display">
+      <h1 id="numero-turno">00</h1>
+      <p class="texto-turno">Por favor, acérquese al mostrador</p>
+      <div class="botones">
+        <button id="bt-anterior">Anterior</button><br />
+        <button id="bt-siguiente">Siguiente</button><br />
+      </div>
+      <button id="bt-reset">Iniciar turno</button><br />
     </div>
+    <div class="resultado">
+      Escriba un turno entre 0 y 99
+      <input
+        type="number"
+        id="otroturno"
+        value="0"
+        maxlength="2"
+        min="0"
+        max="3"
+      />
+      <button id="bt-cambio">Cambiar turno</button><br />
+    </div>
+    <br />
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

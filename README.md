@@ -1,129 +1,162 @@
-## Laboratorio Módulo 3 Variables
+# Laboratorio Módulo 4 Funciones
 
-## Grupos musicales
+## Turno en una clínica
 
-<p>Queremos mostrar información acerca de grupos musicales.</p>
+![Fiesta](./imagenes/consulta.jpg)
 
-![Fiesta](./imagenes/L0T.gif)
+<p>Queremos implementar una pantalla en la que aparezca un display con el turno actual de una clínica y un botón para pasar al siguiente turno y otro para volver al anterior.</p>
 
-Si estás trabajando con TypeScript habría que crear un interfaz para representar a un grupo musical.
-
-- Nombre del grupo / cantante / compositor (string).
-
-- Año de fundación: cuando se formó el grupo (numero).
-
-- Si está en activo (booleano).
-
-- Género musical (string).
-
-Cada género queremos tenerlo en una variable.
-
-Los grupos que vamos a mostrar:
-
-- The Beatles / 1960 / Activo: true / 🎵 Pop Rock
-
-- Queen / 1970 / Activo: false / 🎸 Rock
-
-- AC DC / 1973 / Activo: true / 🤘 Hard Rock
-
-- Ludwig van Beethoven / 1770 / Activo: false / 🎼 Clásica
-
-- The Rolling Stones / 1962 / Activo: true / 🎸 Rock
-
-Queremos mostrar cada grupo por consola, el nombre del grupo de música queremos ponerlo en negrita, con fuente más grande y color de fondo verde.
-
-## Resultado
+# Resultado
 
 <p>Utilizaré el <a href="https://github.com/Lemoncode/typescript-sandbox" title="sandbox de TS"> sandbox de TypeScript</a> para la resolución. </p>
 
-<p>Definimos una variable para el estilo de letra del Grupo musical</p>
+<p>A implementar:</p>
 
-```JavaScript
-const estiloGrupo =
-  "color:white;font-weight: bold; font-size:25px;background-color:green";
-```
+### Básico
 
-<p>Y las variables para los géneros musicales</p>
+<p>
 
-```JavaScript
-const PopRock: string = "🎵 Pop Rock";
-const Rock: string = "🎸 Rock";
-const HardRock: string = "🤘 Hard Rock";
-const Clasica: string = "🎼 Clásica";
-```
+- En grande se muestra el turno.
+- El operario puede ir dándole a siguiente o anterior y el turno cambia.
 
-<p>Creamos una interface donde indicamos el tipo de cada variable del grupo musical</p>
+- Además de esto vamos a añadir un botón de reset que pone el turno a 0.
+</p>
+
+<p>Y el resultado:</p>
+
+![Basico](./imagenes/BasicoTurno.png)
+
+### Avanzado
+
+<p>Como challenge puedes añadir una caja de texto y un botón que permita cambiar el turno a un valor que ponga el operario.</p>
+
+<p>Y el resultado:</p>
+
+![Avanzado](./imagenes/AvanzadoTurno.png)
+
+<p>Primero definimos los botones y asociamos el click a la función correspondiente</p>
 
 ```TypeScript
-interface GrupoMusical {
-  nombre: string;
-  añoFundacion: number;
-  activo: boolean;
-  genero: string;
+const btAnterior = document.getElementById("bt-anterior");
+btAnterior?.addEventListener("click", anterior);
+
+const btSiguiente = document.getElementById("bt-siguiente");
+btSiguiente?.addEventListener("click", siguiente);
+
+const btReset = document.getElementById("bt-reset");
+btReset?.addEventListener("click", reset);
+
+const btCambio = document.getElementById("bt-cambio");
+btCambio?.addEventListener("click", cambio);
+
+```
+
+<p>Definimos dos funciones que usaremos en todas las funciones
+
+- saberTurno: para recuperar del DOM el turno actual
+
+- nuevoTurno: para actualizar el turno en el DOM. Se incluye la función padStart para incluir un cero delante del turno.
+</p>
+
+```TypeScript
+function saberTurno() {
+  turno = document.getElementById("numero-turno")!;
+  turnoNum = parseInt(turno.innerHTML);
+}
+
+function nuevoTurno() {
+  const resultadoElement = document.getElementById("numero-turno");
+  const turnoRelleno = newTurno.toString().padStart(2, "0");
+  if (resultadoElement !== null && resultadoElement !== undefined) {
+    resultadoElement.innerHTML = turnoRelleno.toString();
+  }
 }
 ```
 
-<p>Definimos una variable de tipo objeto para cada grupo y le indicamos que es del tipo de la interface GrupoMusical</p>
+<p>Y definimos las funciones que se ejecutarán en función del botón
+
+- anterior
+
+</p>
 
 ```TypeScript
-const grupoA: GrupoMusical = {
-  nombre: "The Beatles",
-  añoFundacion: 1960,
-  activo: true,
-  genero: PopRock,
-};
-const grupoB: GrupoMusical = {
-  nombre: "Queen",
-  añoFundacion: 1970,
-  activo: false,
-  genero: Rock,
-};
-const grupoC: GrupoMusical = {
-  nombre: "AC DC",
-  añoFundacion: 1973,
-  activo: true,
-  genero: HardRock,
-};
-const grupoD: GrupoMusical = {
-  nombre: "Ludwig van Beethoven",
-  añoFundacion: 1770,
-  activo: false,
-  genero: Clasica,
-};
-const grupoE: GrupoMusical = {
-  nombre: "The Rolling Stones",
-  añoFundacion: 1962,
-  activo: true,
-  genero: Rock,
-};
+function anterior() {
+  saberTurno();
+  //Incluyo condición para que solo reste un turno si el turno actual no es 00
+  if (turnoNum !== 0) {
+    newTurno = turnoNum - 1;
+    nuevoTurno();
+  }
+}
 ```
 
-<p>Utilizamos backticks e interpolación para sustituir las variables en la cadena de texto</p>
+<p>
+
+- siguiente
+
+</p>
 
 ```TypeScript
-console.log(`%c${grupoA.nombre}`, estiloGrupo);
-console.log(
-  `El grupo ${grupoA.nombre} fue fundado en el año ${grupoA.añoFundacion}, pertenece al género musical ${grupoA.genero} y actualmente es ${grupoA.activo} que esté en activo .`
-);
-
-console.log(`%c${grupoB.nombre}`, estiloGrupo);
-console.log(
-  `El grupo ${grupoB.nombre} fue fundado en el año ${grupoB.añoFundacion}, pertenece al género musical ${grupoB.genero} y actualmente es ${grupoB.activo} que esté en activo .`
-);
-console.log(`%c${grupoC.nombre}`, estiloGrupo);
-console.log(
-  `El grupo ${grupoC.nombre} fue fundado en el año ${grupoC.añoFundacion}, pertenece al género musical ${grupoC.genero} y actualmente es ${grupoC.activo} que esté en activo .`
-);
-console.log(`%c${grupoD.nombre}`, estiloGrupo);
-console.log(
-  `El compositor ${grupoD.nombre} nació en el año ${grupoD.añoFundacion}, pertenece al género musical ${grupoD.genero} y actualmente es ${grupoD.activo} que esté en activo .`
-);
-console.log(`%c${grupoE.nombre}`, estiloGrupo);
-console.log(
-  `El grupo ${grupoE.nombre} fue fundado en el año ${grupoE.añoFundacion}, pertenece al género musical ${grupoE.genero} y actualmente es ${grupoE.activo} que esté en activo .`
-);
+function siguiente() {
+  saberTurno();
+  //Incluyo condición para que solo sume un turno si el turno actual no es 99
+  if (turnoNum !== 99) {
+    newTurno = turnoNum + 1;
+    nuevoTurno();
+  }
+  //Incluyo condición para que inicie el turno si es 99
+  if (turnoNum == 99) {
+    reset();
+  }
+}
 ```
 
-Y por consola
+<p>
 
-![SalidaConsola](./imagenes/Salidaconsola.png)
+- reset
+
+</p>
+
+```TypeScript
+function reset() {
+  newTurno = 0;
+  nuevoTurno();
+}
+```
+
+<p>
+
+- cambio
+
+</p>
+
+```TypeScript
+function cambio() {
+  otroTurno = parseInt(
+    (document.getElementById("otroturno") as HTMLInputElement)?.value
+  );
+  //Incluyo condición para que solo se introduzcan turnos entre 0 y 99
+  //y que no pueda ser espacios
+
+  if (otroTurno < 0 || otroTurno > 99 || isNaN(otroTurno) == true) {
+    if (otroTurno < 0 || otroTurno > 99) {
+      alert(
+        "El turno introducido no es correcto debe tener un valor entre 0 y 99"
+      );
+    } else {
+      alert("Debe informar algún turno");
+    }
+  } else {
+    newTurno = otroTurno;
+    nuevoTurno();
+  }
+}
+```
+
+<p> En esta función se han incluido alertas para que no se informe con espacios</p>
+
+![Alertavacio](./imagenes/Alertavacio.png)
+
+<p> Y para que el turno esté entre 0 y 99</p>
+
+![Alertarango](./imagenes/Alertarango.png)

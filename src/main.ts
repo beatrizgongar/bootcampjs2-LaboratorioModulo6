@@ -1,66 +1,76 @@
 import "./style.css";
-const estiloGrupo =
-  "color:white;font-weight: bold; font-size:25px;background-color:green";
-const PopRock: string = "🎵 Pop Rock";
-const Rock: string = "🎸 Rock";
-const HardRock: string = "🤘 Hard Rock";
-const Clasica: string = "🎼 Clásica";
 
-interface GrupoMusical {
-  nombre: string;
-  añoFundacion: number;
-  activo: boolean;
-  genero: string;
+const btAnterior = document.getElementById("bt-anterior");
+btAnterior?.addEventListener("click", anterior);
+
+const btSiguiente = document.getElementById("bt-siguiente");
+btSiguiente?.addEventListener("click", siguiente);
+
+const btReset = document.getElementById("bt-reset");
+btReset?.addEventListener("click", reset);
+
+const btCambio = document.getElementById("bt-cambio");
+btCambio?.addEventListener("click", cambio);
+
+let turno;
+let turnoNum: number;
+let newTurno: number;
+let otroTurno: number;
+
+function saberTurno() {
+  turno = document.getElementById("numero-turno")!;
+  turnoNum = parseInt(turno.innerHTML);
 }
-const grupoA: GrupoMusical = {
-  nombre: "The Beatles",
-  añoFundacion: 1960,
-  activo: true,
-  genero: PopRock,
-};
-const grupoB: GrupoMusical = {
-  nombre: "Queen",
-  añoFundacion: 1970,
-  activo: false,
-  genero: Rock,
-};
-const grupoC: GrupoMusical = {
-  nombre: "AC DC",
-  añoFundacion: 1973,
-  activo: true,
-  genero: HardRock,
-};
-const grupoD: GrupoMusical = {
-  nombre: "Ludwig van Beethoven",
-  añoFundacion: 1770,
-  activo: false,
-  genero: Clasica,
-};
-const grupoE: GrupoMusical = {
-  nombre: "The Rolling Stones",
-  añoFundacion: 1962,
-  activo: true,
-  genero: Rock,
-};
 
-console.log(`%c${grupoA.nombre}`, estiloGrupo);
-console.log(
-  `El grupo ${grupoA.nombre} fue fundado en el año ${grupoA.añoFundacion}, pertenece al género musical ${grupoA.genero} y actualmente es ${grupoA.activo} que esté en activo .`
-);
+function nuevoTurno() {
+  const resultadoElement = document.getElementById("numero-turno");
+  const turnoRelleno = newTurno.toString().padStart(2, "0");
+  if (resultadoElement !== null && resultadoElement !== undefined) {
+    resultadoElement.innerHTML = turnoRelleno.toString();
+  }
+}
+function anterior() {
+  saberTurno();
+  //Incluyo condición para que solo reste un turno si el turno actual no es 00
+  if (turnoNum !== 0) {
+    newTurno = turnoNum - 1;
+    nuevoTurno();
+  }
+}
+function siguiente() {
+  saberTurno();
+  //Incluyo condición para que solo sume un turno si el turno actual no es 99
+  if (turnoNum !== 99) {
+    newTurno = turnoNum + 1;
+    nuevoTurno();
+  }
+  //Incluyo condición para que inicie el turno si es 99
+  if (turnoNum == 99) {
+    reset();
+  }
+}
+function reset() {
+  newTurno = 0;
+  nuevoTurno();
+}
 
-console.log(`%c${grupoB.nombre}`, estiloGrupo);
-console.log(
-  `El grupo ${grupoB.nombre} fue fundado en el año ${grupoB.añoFundacion}, pertenece al género musical ${grupoB.genero} y actualmente es ${grupoB.activo} que esté en activo .`
-);
-console.log(`%c${grupoC.nombre}`, estiloGrupo);
-console.log(
-  `El grupo ${grupoC.nombre} fue fundado en el año ${grupoC.añoFundacion}, pertenece al género musical ${grupoC.genero} y actualmente es ${grupoC.activo} que esté en activo .`
-);
-console.log(`%c${grupoD.nombre}`, estiloGrupo);
-console.log(
-  `El compositor ${grupoD.nombre} nació en el año ${grupoD.añoFundacion}, pertenece al género musical ${grupoD.genero} y actualmente es ${grupoD.activo} que esté en activo .`
-);
-console.log(`%c${grupoE.nombre}`, estiloGrupo);
-console.log(
-  `El grupo ${grupoE.nombre} fue fundado en el año ${grupoE.añoFundacion}, pertenece al género musical ${grupoE.genero} y actualmente es ${grupoE.activo} que esté en activo .`
-);
+function cambio() {
+  otroTurno = parseInt(
+    (document.getElementById("otroturno") as HTMLInputElement)?.value
+  );
+  //Incluyo condición para que solo se introduzcan turnos entre 0 y 99
+  //y que no pueda ser espacios
+
+  if (otroTurno < 0 || otroTurno > 99 || isNaN(otroTurno) == true) {
+    if (otroTurno < 0 || otroTurno > 99) {
+      alert(
+        "El turno introducido no es correcto debe tener un valor entre 0 y 99"
+      );
+    } else {
+      alert("Debe informar algún turno");
+    }
+  } else {
+    newTurno = otroTurno;
+    nuevoTurno();
+  }
+}
