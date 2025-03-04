@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgba(250, 249, 249, 0.87);
   background-color: #242424;
 
   font-synthesis: none;
@@ -14,26 +14,19 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: rgba(6, 94, 25, 0.842);
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 3em;
   line-height: 1.1;
+  color: white;
 }
 
 #app {
@@ -76,7 +69,8 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #235844;
+  background-color: #ffffff;
 }
 button:focus,
 button:focus-visible {
@@ -95,44 +89,45 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-.turno-display {
+.siete-y-media {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 20px;
+  padding: 0;
   border-radius: 10px;
-  margin: 100px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  margin-left: 500px;
+}
+.jugada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.partida {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
-.numero-turno {
-  font-size: 6rem;
+#puntuacion {
+  font-size: 2rem;
   font-weight: bold;
-  color: cadetblue;
+  color: white;
   margin: 0;
+}
+.carta-back {
+  max-height: 150px;
+  border-radius: 15px;
+}
+.carta-back1 {
+  max-height: 300px;
+  border-radius: 15px;
 }
 
-.texto-turno {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0;
-  text-align: center;
-}
-.resultado {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0;
-  text-align: center;
-}
-input {
-  margin: 10px;
-}
-.otroturno {
-  margin: 150px;
-}
 .botones {
   display: flex;
 }

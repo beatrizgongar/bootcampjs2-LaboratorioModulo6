@@ -5,31 +5,73 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="./src/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Funciones</title>
+    <title>Condicionales</title>
   </head>
   <body>
-    <div class="turno-display">
-      <h1 id="numero-turno">00</h1>
-      <p class="texto-turno">Por favor, acérquese al mostrador</p>
-      <div class="botones">
-        <button id="bt-anterior">Anterior</button><br />
-        <button id="bt-siguiente">Siguiente</button><br />
+    <div class="siete-y-media">
+      <header><h1 id="titulo">Siete y media</h1></header>
+      <div class="partida">
+        <img
+          id="carta-back"
+          class="carta-back1"
+          src="/imagenes/back.jpg"
+          alt="Carta"
+        />
+        <div class="botones">
+          <button id="bt-plantarse">Plantarse</button><br />
+          <button id="bt-dame-carta">Dame Carta</button><br />
+        </div>
       </div>
-      <button id="bt-reset">Iniciar turno</button><br />
+      <div class="jugada">
+        <h1 id="titulo">Jugada</h1>
+        <div class="cartas">
+          <img
+            id="carta1"
+            class="carta-back"
+            src="/imagenes/back.jpg"
+            alt="Carta"
+          />
+          <img
+            id="carta2"
+            class="carta-back"
+            src="/imagenes/back.jpg"
+            alt="Carta"
+          />
+          <img
+            id="carta3"
+            class="carta-back"
+            src="/imagenes/back.jpg"
+            alt="Carta"
+          />
+          <img
+            id="carta4"
+            class="carta-back"
+            src="/imagenes/back.jpg"
+            alt="Carta"
+          />
+          <img
+            id="carta5"
+            class="carta-back"
+            src="/imagenes/back.jpg"
+            alt="Carta"
+          />
+          <img
+            id="carta6"
+            class="carta-back"
+            src="/imagenes/back.jpg"
+            alt="Carta"
+          />
+          <img
+            id="carta7"
+            class="carta-back"
+            src="/imagenes/back.jpg"
+            alt="Carta"
+          />
+        </div>
+        <h2 id="puntuacion">0.0</h2>
+        <h2 id="mensaje"></h2>
+      </div>
     </div>
-    <div class="resultado">
-      Escriba un turno entre 0 y 99
-      <input
-        type="number"
-        id="otroturno"
-        value="0"
-        maxlength="2"
-        min="0"
-        max="3"
-      />
-      <button id="bt-cambio">Cambiar turno</button><br />
-    </div>
-    <br />
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
