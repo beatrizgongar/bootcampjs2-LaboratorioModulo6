@@ -1,7 +1,11 @@
 /*-----VARIABLES------*/
 import { partida } from "./modelo";
 /*--- MOTOR DE JUEGO ----*/
-import { dameCarta, plantarse } from "./motor";
+import {
+  actualizarCarta,
+  calculaPuntuacion,
+  generarNumeroAleatorio,
+} from "./motor";
 
 /*-----BOTONES------*/
 export const btDameCarta = document.getElementById("bt-dame-carta");
@@ -81,3 +85,104 @@ export function jugada(carta: number, valor: number) {
     cartaJugada.src = url + valor + url2;
   }
 }
+/*-----FUNCION INICIO DE NUEVA PARTIDA------*/
+export function iniciarNuevaPartida() {
+  location.reload();
+}
+
+/*-----FUNCION DAME CARTA------*/
+function dameCarta() {
+  if (partida.nuevaPartida == true) {
+    iniciarNuevaPartida();
+  } else if (partida.numeroCarta < 11) {
+    const carta = generarNumeroAleatorio();
+    muestraCarta(carta);
+    jugada(partida.numeroCarta + 1, carta);
+    calculaPuntuacion(carta);
+    muestraPuntuacion();
+    controlGameover();
+    actualizarCarta();
+  }
+}
+
+/*-----FUNCION PLANTARSE------*/
+function plantarse() {
+  if (partida.plantado == true) {
+    if (partida.numeroCarta < 11) {
+      const cartaPlantarse = generarNumeroAleatorio();
+      muestraCarta(cartaPlantarse);
+      jugada(partida.numeroCarta + 1, cartaPlantarse);
+      calculaPuntuacion(cartaPlantarse);
+      muestraPuntuacion();
+      mensajeQueHabriaPasado();
+      partida.numeroCarta = 12;
+    }
+    deshabilitarBtPlantarse();
+  } else {
+    mensajePlantarse();
+    QueHubieraPasado();
+  }
+}
+
+/*-----FUNCION MENSAJE QUE HABRIA PASADO------*/
+export function mensajeQueHabriaPasado() {
+  if (partida.puntuacion > 7.5) {
+    muestraMensaje("Te habrías pasado 😁");
+  }
+  if (partida.puntuacion == 7.5) {
+    muestraMensaje("¡La habrías clavado!🙄");
+  }
+  if (partida.puntuacion < 7.5) {
+    muestraMensaje("¡No habrías llegado a  7 y media!🙄");
+  }
+}
+
+/*-----FUNCION MENSAJE PLANTARSE------*/
+export function mensajePlantarse() {
+  if (partida.puntuacion < 4) {
+    muestraMensaje("Has sido muy conservador 🙄");
+  }
+  if (partida.puntuacion >= 4 && partida.puntuacion < 6) {
+    muestraMensaje("Te ha entrado el canguelo eh?🤭");
+  }
+  if (partida.puntuacion >= 6 && partida.puntuacion <= 7) {
+    muestraMensaje("Casi casi....🫣");
+  }
+  if (partida.puntuacion == 7.5) {
+    muestraMensaje("¡Lo has clavado!¡Enhorabuena!🥳");
+  }
+}
+/*-----FUNCION QUE HUBIERA PASADO------*/
+export function QueHubieraPasado() {
+  textoBtDameCarta("Nueva partida");
+  partida.nuevaPartida = true;
+  if (partida.puntuacion == 7.5) {
+    deshabilitarBtPlantarse();
+  } else {
+    textoBtPlantarse("Qué hubiera pasado?");
+    partida.plantado = true;
+  }
+}
+
+/*-----FUNCION CONTROL GAME OVER------*/
+export function controlGameover() {
+  if (partida.puntuacion > 7.5) {
+    muestraMensaje("TE PASASTE 😁");
+  }
+  if (partida.puntuacion == 7.5) {
+    muestraMensaje("¡Lo has clavado!¡Enhorabuena!🥳");
+  }
+  if (partida.puntuacion >= 7.5) {
+    deshabilitarBtPlantarse();
+    textoBtDameCarta("Nueva partida");
+    partida.nuevaPartida = true;
+  }
+}
+
+export const iniciarPartida = () => {
+  partida.numeroCarta = 0;
+  partida.puntuacion = 0;
+  partida.nuevaPartida = false;
+  partida.plantado = false;
+  muestraPuntuacion();
+};

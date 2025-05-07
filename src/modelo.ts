@@ -1,6 +1,4 @@
 interface Partida {
-  listaMezclada: number[];
-  listaPuntuacion: number[];
   numeroCarta: number;
   puntuacion: number;
   nuevaPartida: boolean;
@@ -8,8 +6,6 @@ interface Partida {
 }
 
 export const partida: Partida = {
-  listaMezclada: [],
-  listaPuntuacion: [],
   numeroCarta: 0,
   puntuacion: 0,
   nuevaPartida: false,
